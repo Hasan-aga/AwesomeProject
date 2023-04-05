@@ -44,6 +44,7 @@ function App(): JSX.Element {
         {links.map(link => {
           return (
             <TouchableOpacity
+              key={link}
               onPress={() => {
                 console.log('press');
                 setSelectedLink(link);
@@ -58,7 +59,11 @@ function App(): JSX.Element {
       <View style={{flex: 1}}>
         {links.map(link => {
           return (
-            <MyWebview link={link} isVisible={isVisible(link, selectedLink)} />
+            <MyWebview
+              key={link}
+              link={link}
+              isVisible={isVisible(link, selectedLink)}
+            />
           );
         })}
       </View>
