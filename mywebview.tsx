@@ -2,13 +2,11 @@ import React, {useEffect, useMemo} from 'react';
 import {StyleSheet, View} from 'react-native';
 import WebView from 'react-native-webview';
 
-export default function MyWebview({
-  link,
-  isVisible,
-}: {
+interface MyWebviewType {
   link: string;
   isVisible: boolean;
-}) {
+}
+export default function MyWebview({link, isVisible}: MyWebviewType) {
   console.log(isVisible);
   const pureWebview = useMemo(() => <WebView source={{uri: link}} />, [link]);
 

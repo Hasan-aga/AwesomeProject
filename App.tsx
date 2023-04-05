@@ -6,29 +6,15 @@
  */
 
 import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 
-import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
-import MyWebview from './mywebview';
+import WebviewSelector from './WebviewSelector';
 
 // if (__DEV__) {
 //   import('./ReactotronConfig').then(() =>
 //     console.log('Reactotron Configured baby'),
 //   );
 // }
-
-function isVisible(link: string, selectedLink: string) {
-  return link === selectedLink;
-}
 
 function App(): JSX.Element {
   const links = ['https://reactnative.dev/', 'https://stackoverflow.com/'];
@@ -56,17 +42,7 @@ function App(): JSX.Element {
           );
         })}
       </View>
-      <View style={{flex: 1}}>
-        {links.map(link => {
-          return (
-            <MyWebview
-              key={link}
-              link={link}
-              isVisible={isVisible(link, selectedLink)}
-            />
-          );
-        })}
-      </View>
+      <WebviewSelector selectedLink={selectedLink} links={links} />
     </View>
   );
 }
