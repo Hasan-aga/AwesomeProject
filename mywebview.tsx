@@ -1,16 +1,17 @@
-import {useEffect, useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {StyleSheet, View} from 'react-native';
 import WebView from 'react-native-webview';
 
-export default function MyWebview({link, isVisible}) {
+export default function MyWebview({
+  link,
+  isVisible,
+}: {
+  link: string;
+  isVisible: boolean;
+}) {
   console.log(isVisible);
   const pureWebview = useMemo(() => <WebView source={{uri: link}} />, [link]);
-  useEffect(() => {
-    fetch('https://www.google.com/')
-      .then(res => res.text())
-      .then(data => console.log('res', data))
-      .catch(error => console.log(error));
-  }, []);
+
   return (
     <View style={isVisible ? styles.container : styles.hiddenView}>
       {pureWebview}
