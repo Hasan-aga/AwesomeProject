@@ -26,26 +26,41 @@ import MyWebview from './mywebview';
 //   );
 // }
 
+function isVisible(link: string, selectedLink: string) {
+  return link === selectedLink;
+}
+
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  const [isVisible, setisVisible] = useState(true);
+  const links = ['https://reactnative.dev/', 'https://stackoverflow.com/'];
+  const [selectedLink, setSelectedLink] = useState('');
+
+  useEffect(() => {
+    setSelectedLink(links[0]);
+  }, []);
 
   return (
     <View style={{flexDirection: 'column', height: '100%', width: '100%'}}>
       <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-        <TouchableOpacity
-          onPress={() => {
-            console.log('press');
-            setisVisible(!isVisible);
-          }}>
-          <Text style={{fontSize: 20, color: '#007aff', marginBottom: 20}}>
-            {isVisible ? 'Hide View' : 'Show View'}
-          </Text>
-        </TouchableOpacity>
+        {links.map(link => {
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                console.log('press');
+                setSelectedLink(link);
+              }}>
+              <Text style={{fontSize: 20, color: '#007aff', marginBottom: 20}}>
+                show {link}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
       <View style={{flex: 1}}>
-        <MyWebview link="https://reactnative.dev/" isVisible={isVisible} />
-        <MyWebview link="https://stackoverflow.com/" isVisible={!isVisible} />
+        {links.map(link => {
+          return (
+            <MyWebview link={link} isVisible={isVisible(link, selectedLink)} />
+          );
+        })}
       </View>
     </View>
   );
